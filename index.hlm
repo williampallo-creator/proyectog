@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Control de Foco</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+    }
+
+    button {
+      width: 200px;
+      height: 60px;
+      font-size: 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .on {
+      background-color: green;
+      color: white;
+    }
+
+    .off {
+      background-color: red;
+      color: white;
+    }
+
+    .connect {
+      background-color: blue;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>CONTROL DE FOCO</h1>
+
+<button class="connect" onclick="conectar()">Conectar</button><br>
+
+<button class="on" onclick="encender()">ENCENDER</button><br>
+
+<button class="off" onclick="apagar()">APAGAR</button>
+
+<p id="estado">Estado: Desconectado</p>
+
+<script>
+let device;
+let characteristic;
+
+async function conectar() {
+  try {
+    device = await navigator.bluetooth.requestDevice({
+      acceptAllDevices: true,
+      optionalServices: ['battery_service']
+    });
+
+    document.getElementById("estado").innerText = "Conectado";
+  } catch (error) {
+    alert("Error al conectar");
+  }
+}
+
+function encender() {
+  document.getElementById("estado").innerText = "Foco Encendido";
+}
+
+function apagar() {
+  document.getElementById("estado").innerText = "Foco Apagado";
+}
+</script>
+
+</body>
+</html>
